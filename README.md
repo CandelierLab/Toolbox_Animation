@@ -1,5 +1,9 @@
-This is the toolbox for animations.
+# Toolbox_Animation
+A python toolbox for creating animations.
 
-=== Installation
+## Installation via Conda:
 
-conda
+```
+conda install numpy matplotlib pyqt
+pip install imageio[ffmpeg]
+```
