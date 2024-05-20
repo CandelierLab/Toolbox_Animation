@@ -2,8 +2,9 @@ import numpy as np
 
 from PyQt5.QtGui import QLinearGradient
 
-from AE.Display.Animation.Items_2d import *
-from AE.Display.Colormap import *
+import project
+from Items_2d import *
+from Colormap import *
 
 # === COMPOSITE ELEMENTS ===================================================
 

@@ -1,7 +1,8 @@
 import os
 
-from AE.Display.Animation.Window import *
-from AE.Display.Animation.Animation_2d import *
+import project
+from Window import *
+from Animation_2d import *
 
 os.system('clear')
 

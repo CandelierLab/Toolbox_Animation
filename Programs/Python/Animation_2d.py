@@ -34,8 +34,9 @@ from PyQt5.QtCore import Qt, QObject, pyqtSignal
 from PyQt5.QtGui import QPalette, QPainter, QPen
 from PyQt5.QtWidgets import QApplication, QGraphicsScene, QGraphicsView, QGraphicsRectItem
 
-from AE.Display.Animation.Items_2d import *
-from AE.Display.Animation.Composites_2d import *
+import project
+from Items_2d import *
+from Composites_2d import *
 
 # ==========================================================================
 

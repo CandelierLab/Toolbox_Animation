@@ -1,8 +1,9 @@
 import re
 
-from AE.Display.time import *
-from AE.Display.Animation.Animation_2d import *
-from AE.Display.Animation.Items_2d import *
+import project
+from Time import *
+from Animation_2d import *
+from Items_2d import *
 
 class Information(Animation_2d):
     

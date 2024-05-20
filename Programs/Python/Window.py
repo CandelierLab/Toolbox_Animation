@@ -8,9 +8,10 @@ except:
   # The try-except structure is for pdoc, which may have trouble to find imageio
   pass
 
-from AE.Display.time import *
-from AE.Display.Animation.Information import *
-from AE.Display.Animation.Animation_2d import *
+import project
+from time import *
+from Information import *
+from Animation_2d import *
 
 from PyQt5.QtCore import pyqtSignal, QTimer
 from PyQt5.QtGui import QKeySequence, QImage
