@@ -9,9 +9,8 @@ except:
   pass
 
 import project
-from time import *
-from Information import *
-from Animation_2d import *
+from Animation.Information import *
+from Animation.Animation_2d import *
 
 from PyQt5.QtCore import pyqtSignal, QTimer
 from PyQt5.QtGui import QKeySequence, QImage
@@ -101,7 +100,7 @@ class Window(QWidget):
     self.style = style 
 
     # Modified qdarkstyle
-    if self.style is 'dark':
+    if self.style == 'dark':
       with open(os.path.dirname(os.path.abspath(__file__))+'/Style/dark.css', 'r') as f:
         css = f.read()
         self.app.setStyleSheet(css)

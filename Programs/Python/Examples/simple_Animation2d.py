@@ -2,8 +2,8 @@ import os
 
 import project
 
-from Window import *
-from Animation_2d import *
+from Animation.Window import *
+from Animation.Animation_2d import *
 
 os.system('clear')
 

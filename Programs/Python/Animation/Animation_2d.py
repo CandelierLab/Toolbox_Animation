@@ -35,8 +35,8 @@ from PyQt5.QtGui import QPalette, QPainter, QPen
 from PyQt5.QtWidgets import QApplication, QGraphicsScene, QGraphicsView, QGraphicsRectItem
 
 import project
-from Items_2d import *
-from Composites_2d import *
+from Animation.Items_2d import *
+from Animation.Composites_2d import *
 
 # ==========================================================================
 

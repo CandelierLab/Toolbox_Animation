@@ -1,9 +1,9 @@
 import os
 
 import project
-from Window import *
-from Animation_2d import *
-from Colormap import *
+from Animation.Window import *
+from Animation.Animation_2d import *
+from Animation.Colormap import *
 
 os.system('clear')
 

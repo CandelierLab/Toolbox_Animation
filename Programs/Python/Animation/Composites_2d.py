@@ -3,8 +3,8 @@ import numpy as np
 from PyQt5.QtGui import QLinearGradient
 
 import project
-from Items_2d import *
-from Colormap import *
+from Animation.Items_2d import *
+from Animation.Colormap import *
 
 # === COMPOSITE ELEMENTS ===================================================
 

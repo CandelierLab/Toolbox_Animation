@@ -1,9 +1,9 @@
 import re
 
 import project
-from Time import *
-from Animation_2d import *
-from Items_2d import *
+from Animation.Time import *
+from Animation.Animation_2d import *
+from Animation.Items_2d import *
 
 class Information(Animation_2d):
     
