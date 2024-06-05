@@ -13,7 +13,9 @@ class Anim(Animation_2d):
 
   def __init__(self):
 
-    super().__init__()
+    self.boundaries = {'x':[0,1], 'y':[0,1], 'width':None, 'height':None}
+
+    super().__init__(boundaries=[[-1,1],[0,1]])
 
     self.padding=0.01
 
@@ -102,8 +104,7 @@ class Anim(Animation_2d):
     # self.composite['A'].shape = 'disk'
 
   def update(self, t):
-    
-    # Update timer display
+        # Update timer display
     super().update(t)
 
     # Update position

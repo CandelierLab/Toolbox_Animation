@@ -76,6 +76,11 @@ class Window(QWidget):
     self.layout = QGridLayout()
     self.setLayout(self.layout)
 
+    self.layout.setSpacing(0)
+    self.layout.setContentsMargins(0, 0, 0, 0)
+
+    self.aspect_ratios = []
+
     # --- Information
 
     if display_information:
@@ -87,6 +92,8 @@ class Window(QWidget):
       self.information.updated.connect(self.capture)
       self._nAnim += 1
 
+      self.aspect_ratios.append(self.information.aspect_ratio)
+
     else:
       self.information = None
 
@@ -94,7 +101,7 @@ class Window(QWidget):
 
     self.width = None
     self.height = None
-
+    
     # --- Style
 
     self.style = style 
@@ -159,6 +166,8 @@ class Window(QWidget):
       panel.updated.connect(self.capture)
       self._nAnim += 1
 
+      self.aspect_ratios.append(panel.aspect_ratio)
+
     else:
 
       self.layout.addLayout(panel, row, col)
@@ -210,16 +219,18 @@ class Window(QWidget):
 
     # Default size
     if self.height is None:
-      self.height = int(QApplication.desktop().screenGeometry().height()*0.6)
+      self.height = int(QApplication.desktop().screenGeometry().height()*0.2)
 
     if self.width is None:
-      if self.information is None:
-        self.width = int(self.height*(self._nAnim))
-      else:
-        self.width = int(self.height*(self._nAnim-0.75))
+      self.width = int(self.height*np.sum(self.aspect_ratios))
+      # if self.information is None:
+      #   self.width = int(self.height*(self._nAnim))
+      # else:
+      #   self.width = int(self.height*(self._nAnim-0.75))
 
     # Set window size
     self.resize(self.width, self.height)
+    print(np.sum(self.aspect_ratios), self.width, self.height)
 
     # --- Timing -----------------------------------------------------------
 

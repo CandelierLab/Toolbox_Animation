@@ -131,8 +131,7 @@ class Animation_2d(QObject):
     """
     Animation constructor
 
-    Defines all the attributes of the animation, especially the ``QGraphicsScene``
-    and ``QGraphicsView`` necessary for rendering.
+    Defines all the attributes of the animation, especially the ``QGraphicsScene`` and ``QGraphicsView`` necessary for rendering.
 
     Args:
 
@@ -169,6 +168,9 @@ class Animation_2d(QObject):
     # Scale factor
     self.factor = self.viewHeight/self.boundaries['height']
 
+    # Aspect ratio
+    self.aspect_ratio = self.boundaries['width']/self.boundaries['height']
+    
     # Scene
     self.scene = QGraphicsScene()
     self.view = view(self.scene)
@@ -188,12 +190,6 @@ class Animation_2d(QObject):
     self.composite = {}
 
     # --- Display
-
-    # Dark background
-    # self.view.setBackgroundBrush(Qt.black)
-    # pal = self.view.palette()
-    # pal.setColor(QPalette.Window, Qt.black)
-    # self.view.setPalette(pal)
 
     # Antialiasing
     self.view.setRenderHints(QPainter.Antialiasing)
