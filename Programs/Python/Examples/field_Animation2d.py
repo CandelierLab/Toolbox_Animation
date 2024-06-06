@@ -35,7 +35,7 @@ class Anim(Animation_2d):
 
 # --- Main -----------------------------------------------------------------
 
-W = Window('Simple animation')
+W = Window('Field animation')
 W.add(Anim(W))
 
 # Allow backward animation
