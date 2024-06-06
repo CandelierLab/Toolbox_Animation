@@ -1,8 +1,8 @@
 import numpy as np
 
-from PyQt5.QtCore import Qt, QPointF, QRectF
-from PyQt5.QtGui import QColor, QPen, QBrush, QPolygonF, QFont, QPainterPath, QTransform
-from PyQt5.QtWidgets import QAbstractGraphicsShapeItem, QGraphicsItem, QGraphicsItemGroup, QGraphicsTextItem, QGraphicsLineItem, QGraphicsEllipseItem, QGraphicsPolygonItem, QGraphicsRectItem, QGraphicsPathItem
+from PyQt5.QtCore import Qt, QPointF, QRectF, QSize
+from PyQt5.QtGui import QColor, QPen, QBrush, QPolygonF, QFont, QPainterPath, QTransform, QPixmap, QImage
+from PyQt5.QtWidgets import QAbstractGraphicsShapeItem, QGraphicsItem, QGraphicsItemGroup, QGraphicsTextItem, QGraphicsLineItem, QGraphicsEllipseItem, QGraphicsPolygonItem, QGraphicsRectItem, QGraphicsPathItem, QGraphicsPixmapItem
 
 # === ITEMS ================================================================
 
@@ -1515,3 +1515,109 @@ class path(item, QGraphicsPathItem):
   def linestyle(self, s):
     self._linestyle = s
     self.setStyle()      
+
+# --- Image -----------------------------------------------------------------
+
+class image(item, QGraphicsPixmapItem):
+  """
+  Image item
+  """
+
+  def __init__(self, animation, name, position=[0,0], width=None, height=None, **kwargs):
+    """
+    Image item constructor
+    """  
+
+    # Generic item constructor
+    super().__init__(animation, name, **kwargs)
+    
+    # --- Definitions
+
+    self._width = None
+    self._height = None
+    self._file = None
+    self._image = None
+    self.pixmap = None
+
+    # --- Initialization
+
+    self.width = width if width is not None else self.animation.boundaries['width']
+    self.height = height if height is not None else self.animation.boundaries['height']
+    self.position = position
+
+    # --- Image
+
+    if 'file' in kwargs:
+      self.file = kwargs['file']
+    elif 'image' in kwargs:
+      self.image = kwargs['image']
+    else:
+      self.image = np.zeros((1,1))
+      
+    # Adjust position
+    # self.setPos(0,-self.height)
+
+  # --- Position -----------------------------------------------------------
+
+  @property
+  def position(self): return self._position
+
+  @position.setter
+  def position(self, p):
+    self._position = [p[0], p[1] + self.height]
+    self.place() 
+
+  # --- Width --------------------------------------------------------------
+
+  @property
+  def width(self): return self.scene2d(self._width)
+
+  @width.setter
+  def width(self, w):
+
+    self._width = int(self.d2scene(w))
+    if self.pixmap is not None:
+      self.pixmap = self.pixmap.scaled(QSize(self._width, self._height))
+      self.setPixmap(self.pixmap)
+  
+  # --- Height --------------------------------------------------------------
+
+  @property
+  def height(self): return self.scene2d(self._height)
+
+  @height.setter
+  def height(self, h):
+
+    self._height = int(self.d2scene(h))
+    if self.pixmap is not None:
+      self.pixmap = self.pixmap.scaled(QSize(self._width, self._height))
+      self.setPixmap(self.pixmap)
+  
+  # --- File ---------------------------------------------------------------
+
+  @property
+  def file(self): return self._file
+
+  @file.setter
+  def file(self, fname):
+
+    if fname is not None:
+      self._file = fname
+
+      self.pixmap = QPixmap.fromImage(QImage(self._file)).scaled(QSize(self._width, self._height))
+      self.setPixmap(self.pixmap)
+
+  # --- Image ---------------------------------------------------------------
+
+  @property
+  def image(self): return self._image
+
+  @image.setter
+  def image(self, img):
+
+    self._image = img.astype(np.uint8)
+
+    qImg = QImage(self._image.data, self._image.shape[1], self._image.shape[0], self._image.shape[1], QImage.Format_Indexed8)
+      
+    self.pixmap = QPixmap.fromImage(qImg).scaled(QSize(self._width, self._height))
+    self.setPixmap(self.pixmap)
