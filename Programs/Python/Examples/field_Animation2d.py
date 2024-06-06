@@ -13,23 +13,25 @@ class Anim(Animation_2d):
 
   def __init__(self, W):
 
-    super().__init__(W, boundaries=[[0,1],[0,2]])
+    super().__init__(W)
 
     self.add(image, 'background',
-      image = 100*np.ones((1,1)),
-      cmap = 'hot',
-      crange = [0, 10],
+      image = self.ripple(0),
+      cmap = Colormap('gnuplot', range=[-1, 1]),
       zvalue = -1,
     )
 
-    # self.item['background'].file = 'test.png'
+  def ripple(self, t):
+    x = np.linspace(-1, 1, 500)
+    X, Y = np.meshgrid(x, x)
+    return np.sin((20 * X ** 2) + (20 * Y ** 2) - t/2/np.pi)
 
   def update(self, t):
 
     # Update timer display
     super().update(t)
 
-    self.item['background'].image = 100+2*t.step*np.ones((1, 1))
+    self.item['background'].image = self.ripple(t.step)
 
 # --- Main -----------------------------------------------------------------
 
@@ -38,10 +40,6 @@ W.add(Anim(W))
 
 # Allow backward animation
 W.allow_backward = True
-W.allow_negative_time = False
-
-# W.movieFile = '/home/raphael/Bureau/test.mp4'
-
-W.autoplay = False
+W.allow_negative_time = True
 
 W.show()

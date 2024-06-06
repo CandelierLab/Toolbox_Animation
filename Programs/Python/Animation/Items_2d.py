@@ -1,7 +1,8 @@
 import numpy as np
+from Animation.Colormap import *
 
 from PyQt5.QtCore import Qt, QPointF, QRectF, QSize
-from PyQt5.QtGui import QColor, QPen, QBrush, QPolygonF, QFont, QPainterPath, QTransform, QPixmap, QImage
+from PyQt5.QtGui import QColor, QPen, QBrush, QPolygonF, QFont, QPainterPath, QTransform, QPixmap, QImage, qRgb
 from PyQt5.QtWidgets import QAbstractGraphicsShapeItem, QGraphicsItem, QGraphicsItemGroup, QGraphicsTextItem, QGraphicsLineItem, QGraphicsEllipseItem, QGraphicsPolygonItem, QGraphicsRectItem, QGraphicsPathItem, QGraphicsPixmapItem
 
 # === ITEMS ================================================================
@@ -1537,13 +1538,16 @@ class image(item, QGraphicsPixmapItem):
     self._height = None
     self._file = None
     self._image = None
+    self._table = None
     self.pixmap = None
-
+    
     # --- Initialization
 
     self.width = width if width is not None else self.animation.boundaries['width']
     self.height = height if height is not None else self.animation.boundaries['height']
     self.position = position
+
+    self.cmap = kwargs['cmap'] if 'cmap' in kwargs else Colormap('grey', ncolors=256)
 
     # --- Image
 
@@ -1615,9 +1619,30 @@ class image(item, QGraphicsPixmapItem):
   @image.setter
   def image(self, img):
 
+    # Rescale on [0,255]
+    img[img<self._cmap.range[0]] = self._cmap.range[0]
+    img[img>self._cmap.range[1]] = self._cmap.range[1]
+    img = 255*(img - self._cmap.range[0])/(self._cmap.range[1] - self._cmap.range[0])
+
+    # 
     self._image = img.astype(np.uint8)
 
+    # Build image
     qImg = QImage(self._image.data, self._image.shape[1], self._image.shape[0], self._image.shape[1], QImage.Format_Indexed8)
+
+    # Apply colormap
+    qImg.setColorTable(self._ctable)
       
     self.pixmap = QPixmap.fromImage(qImg).scaled(QSize(self._width, self._height))
     self.setPixmap(self.pixmap)
+
+  # --- Colormap -----------------------------------------------------------
+
+  @property
+  def cmap(self): return self._cmap
+
+  @cmap.setter
+  def cmap(self, C):
+
+    self._cmap = C
+    self._ctable = C.colortable()

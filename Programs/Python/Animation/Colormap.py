@@ -2,8 +2,9 @@
 Colormaps tools
 """
 
+import numpy as np
 from matplotlib import cm
-from PyQt5.QtGui import QColor
+from PyQt5.QtGui import QColor, qRgb
 
 class Colormap():
   """
@@ -100,3 +101,12 @@ class Colormap():
     c = self.cmap(value)
 
     return 'rgb({:d},{:d},{:d})'.format(int(c[0]*255), int(c[1]*255), int(c[2]*255))
+
+  def colortable(self):
+
+    table = []
+    for v in np.linspace(0, 1, 256):
+      c = self.cmap(v)
+      table.append(qRgb(int(c[0]*255), int(c[1]*255), int(c[2]*255)))
+
+    return table
