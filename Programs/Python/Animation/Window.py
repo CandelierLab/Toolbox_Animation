@@ -43,7 +43,7 @@ class Window(QWidget):
   ''' A pyqtSignal object to manage external events.'''
 
   # ========================================================================
-  def __init__(self, title='Animation', display_information=True, autoplay=True, dt=None, style='dark'):
+  def __init__(self, title='Animation', display_information=True, autoplay=True, dt=None, style='dark', height=0.75):
     """
     Window constructor.
 
@@ -77,7 +77,14 @@ class Window(QWidget):
     self.setLayout(self.layout)
 
     self.layout.setSpacing(0)
-    self.layout.setContentsMargins(0, 0, 0, 0)
+    # self.layout.setContentsMargins(0,0,0,0)
+
+    # Window size
+    if height<=1:
+      self.height = int(QApplication.desktop().screenGeometry().height()*height)
+    else:
+      self.height = int(height)
+    self.width = None
 
     self.aspect_ratios = []
 
@@ -85,7 +92,7 @@ class Window(QWidget):
 
     if display_information:
 
-      self.information = Information()
+      self.information = Information(self)
     
       self.layout.addWidget(self.information.view, 0, 0)
       self.events.connect(self.information.receive)
@@ -96,11 +103,6 @@ class Window(QWidget):
 
     else:
       self.information = None
-
-    # --- Default size
-
-    self.width = None
-    self.height = None
     
     # --- Style
 
@@ -219,18 +221,13 @@ class Window(QWidget):
 
     # Default size
     if self.height is None:
-      self.height = int(QApplication.desktop().screenGeometry().height()*0.2)
+      self.height = int(self.information.viewHeight)
 
     if self.width is None:
-      self.width = int(self.height*np.sum(self.aspect_ratios))
-      # if self.information is None:
-      #   self.width = int(self.height*(self._nAnim))
-      # else:
-      #   self.width = int(self.height*(self._nAnim-0.75))
+      self.width = int(self.height*np.sum(self.aspect_ratios)) + 35
 
     # Set window size
     self.resize(self.width, self.height)
-    print(np.sum(self.aspect_ratios), self.width, self.height)
 
     # --- Timing -----------------------------------------------------------
 

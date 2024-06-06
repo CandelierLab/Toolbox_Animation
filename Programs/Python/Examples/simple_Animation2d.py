@@ -11,11 +11,9 @@ os.system('clear')
 
 class Anim(Animation_2d):
 
-  def __init__(self):
+  def __init__(self, W):
 
-    self.boundaries = {'x':[0,1], 'y':[0,1], 'width':None, 'height':None}
-
-    super().__init__(boundaries=[[-1,1],[0,1]])
+    super().__init__(W, boundaries=[[0,1],[0,1]])
 
     self.padding=0.01
 
@@ -115,7 +113,7 @@ class Anim(Animation_2d):
 # --- Main -----------------------------------------------------------------
 
 W = Window('Simple animation')
-W.add(Anim())
+W.add(Anim(W))
 
 # Allow backward animation
 W.allow_backward = True

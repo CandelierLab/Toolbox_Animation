@@ -11,9 +11,9 @@ os.system('clear')
 
 class Anim(Animation_2d):
 
-  def __init__(self):
+  def __init__(self, W):
 
-    super().__init__()
+    super().__init__(W)
 
     # --- Colorbar
 
@@ -78,5 +78,5 @@ class Anim(Animation_2d):
 # --- Main -----------------------------------------------------------------
 
 W = Window('Colorbar example')
-W.add(Anim())
+W.add(Anim(W))
 W.show()

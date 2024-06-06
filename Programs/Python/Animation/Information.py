@@ -8,10 +8,10 @@ from Animation.Items_2d import *
 class Information(Animation_2d):
     
   # ========================================================================
-  def __init__(self, disp_time=True):
+  def __init__(self, W, disp_time=True):
     
     # Parent contructor
-    super().__init__(boundaries=[[0, 0.2], [0, 1]], disp_boundaries=True, boundaries_color=Qt.red)
+    super().__init__(W, boundaries=[[0, 0.2], [0, 1]], boundaries_color=Qt.black)
 
     # --- Optional display
 

@@ -10,9 +10,9 @@ os.system('clear')
 
 class Anim(Animation_2d):
 
-  def __init__(self, color):
+  def __init__(self, W, color):
 
-    super().__init__()
+    super().__init__(W)
 
     self.padding = 0.01
 
@@ -58,8 +58,8 @@ W = Window(display_information=True)
 
 W.title = 'Multiple animation'
 
-W.add(Anim('red'))
-W.add(Anim('green'))
+W.add(Anim(W, 'red'))
+W.add(Anim(W, 'green'))
 
 # Allow backward animation
 W.allow_backward = True

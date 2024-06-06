@@ -127,7 +127,7 @@ class Animation_2d(QObject):
   updated = pyqtSignal()
 
   # ========================================================================
-  def __init__(self, viewHeight=None, boundaries=None, disp_boundaries=True, boundaries_color=Qt.lightGray):
+  def __init__(self, W, viewHeight=None, boundaries=None, disp_boundaries=True, boundaries_color=Qt.lightGray):
     """
     Animation constructor
 
@@ -151,9 +151,16 @@ class Animation_2d(QObject):
 
     super().__init__()
 
+    self.window = W
+
     # --- Size settings
 
-    self.viewHeight = viewHeight if viewHeight is not None else QApplication.desktop().screenGeometry().height()*0.6
+    if viewHeight is None:
+      self.viewHeight = self.window.height
+    elif viewHeight<=1:
+      self.viewHeight = QApplication.desktop().screenGeometry().height()*viewHeight
+    else:
+      self.viewHeight = viewHeight
     
      # --- Scene & view
 
