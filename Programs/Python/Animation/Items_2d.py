@@ -98,6 +98,8 @@ class item():
       The :math:`x` position in scene coordinates.
     """
     if self.parent is None:
+      # return x*self.animation.factor
+      # print(self.animation.boundaries['x'][0])
       return (x-self.animation.boundaries['x'][0])*self.animation.factor
     else:
       return x*self.animation.factor
@@ -1359,7 +1361,7 @@ class polygon(item, QGraphicsPolygonItem):
 
     poly = []
     for p in self._points:
-      poly.append(QPointF(self.x2scene(p[0]), self.y2scene(p[1])))
+      poly.append(QPointF(self.d2scene(p[0]), -self.d2scene(p[1])))
     self.setPolygon(QPolygonF(poly))
   
   # --- Color --------------------------------------------------------------

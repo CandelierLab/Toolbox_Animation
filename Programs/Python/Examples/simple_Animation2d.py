@@ -77,8 +77,9 @@ class Anim(Animation_2d):
     # )
 
     # self.add(polygon, 'P',
-    #   points = [[0.5,0.5],[0.5,0.75],[0.75,0.5]],
-    #   colors = ['green','red'],
+    #   position = [0, 0],
+    #   points = [[0,0],[0.5,0.75],[0.75,0.5]],
+    #   colors = ['blue','cyan'],
     #   thickness = 3,
     #   draggable = True
     # )
