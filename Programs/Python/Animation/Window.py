@@ -129,9 +129,10 @@ class Window(QWidget):
 
     # Play
     self.autoplay = autoplay
+    self.step_max = None
     self.allow_backward = False
     self.allow_negative_time = False
-
+    
     self.play_forward = True
 
     # --- Output 
@@ -266,6 +267,10 @@ class Window(QWidget):
     # Check negative times
     if not self.allow_negative_time and self.step<0:
       self.step = 0
+
+    # Check excessive times
+    if self.step_max is not None and self.step>=self.step_max:
+      self.step = self.step_max
 
     # Emit event
     self.events.emit({'type': 'update', 'time': time(self.step, self.step*self.dt)})
