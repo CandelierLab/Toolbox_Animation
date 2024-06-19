@@ -301,7 +301,6 @@ class Window(QWidget):
         # Append array to movie
         self.movieWriter.append_data(A)
 
-
   # ========================================================================
   def play_pause(self, force=None):
 

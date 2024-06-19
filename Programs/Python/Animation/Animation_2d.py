@@ -298,6 +298,9 @@ class Animation_2d(QObject):
         # Update dispay
         self.update(event['time'])
 
+      case 'stop':
+        self.stop()
+
       case _:
         pass
         # print(event)
@@ -320,4 +323,14 @@ class Animation_2d(QObject):
     """
 
     pass
+  
+  # ========================================================================
+  def stop(self):
+    """
+    Stop notification
 
+    This method is triggered when the window is closed.
+    It does nothing and has to be reimplemented in subclasses.
+    """
+
+    pass
