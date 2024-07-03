@@ -269,9 +269,11 @@ class Window(QWidget):
       self.step = 0
 
     # Check excessive times
-    if self.step_max is not None and self.step>=self.step_max:
-      self.step = self.step_max
-
+    if self.step_max is not None and self.step>self.step_max:
+        self.step = self.step_max
+        self.play_pause()
+        return
+        
     # Emit event
     self.events.emit({'type': 'update', 'time': time(self.step, self.step*self.dt)})
 
