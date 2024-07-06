@@ -260,7 +260,7 @@ class Animation_2d(QObject):
       self.item[name].position = [x, y]
 
       # Bottom padding
-      self.stack['vpos'] -= self.stack['vpadding']
+      self.stack['vpos'] -= kwargs['vpadding'] if 'vpadding' in kwargs else self.stack['vpadding']
 
   # ========================================================================
   def setPadding(self, padding):
