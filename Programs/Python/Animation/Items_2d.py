@@ -312,7 +312,7 @@ class item():
 
     # --- Stroke
 
-    if isinstance(self, (QAbstractGraphicsShapeItem,QGraphicsLineItem)):
+    if isinstance(self, (QAbstractGraphicsShapeItem, QGraphicsLineItem)):
 
       Pen = QPen()
 
