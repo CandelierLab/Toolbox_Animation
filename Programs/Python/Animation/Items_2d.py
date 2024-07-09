@@ -1623,11 +1623,11 @@ class image(item, QGraphicsPixmapItem):
   def image(self, img):
 
     # Rescale on [0,255]
-    img[img<self._cmap.range[0]] = self._cmap.range[0]
-    img[img>self._cmap.range[1]] = self._cmap.range[1]
     img = 255*(img - self._cmap.range[0])/(self._cmap.range[1] - self._cmap.range[0])
+    img[img<0] = 0
+    img[img>255] = 255
     self._image = img.astype(np.uint8)
-
+    
     # Build image
     qImg = QImage(self._image.data, self._image.shape[1], self._image.shape[0], self._image.shape[1], QImage.Format_Indexed8)
 
