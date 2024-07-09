@@ -1542,6 +1542,7 @@ class image(item, QGraphicsPixmapItem):
     self._image = None
     self._table = None
     self.pixmap = None
+    self.flip_vertical = kwargs['flip_vertical'] if 'flip_vertical' in kwargs else False
     
     # --- Initialization
 
@@ -1625,8 +1626,6 @@ class image(item, QGraphicsPixmapItem):
     img[img<self._cmap.range[0]] = self._cmap.range[0]
     img[img>self._cmap.range[1]] = self._cmap.range[1]
     img = 255*(img - self._cmap.range[0])/(self._cmap.range[1] - self._cmap.range[0])
-
-    # 
     self._image = img.astype(np.uint8)
 
     # Build image
@@ -1636,6 +1635,10 @@ class image(item, QGraphicsPixmapItem):
     qImg.setColorTable(self._ctable)
       
     self.pixmap = QPixmap.fromImage(qImg).scaled(QSize(self._width, self._height))
+
+    if self.flip_vertical:
+      self.pixmap = self.pixmap.transformed(QTransform().scale(1, -1))
+
     self.setPixmap(self.pixmap)
 
   # --- Colormap -----------------------------------------------------------
