@@ -1523,7 +1523,8 @@ class path(item, QGraphicsPathItem):
 
 class image(item, QGraphicsPixmapItem):
   """
-  Image item
+  RGB Image item from a numpy array or a file.
+  If the source is a numpy array, the three channels must have values in [0,1]
   """
 
   def __init__(self, animation, name, position=[0,0], width=None, height=None, **kwargs):
@@ -1623,13 +1624,126 @@ class image(item, QGraphicsPixmapItem):
   def image(self, img):
 
     # Rescale on [0,255]
+    img[img<0] = 0
+    img[img>1] = 1
+    self._image = (img*255).astype(np.uint8)
+    
+    # Build image
+    qImg = QImage(self._image.data, self._image.shape[1], self._image.shape[0], QImage.Format_RGB888)
+
+    # Apply colormap
+    qImg.setColorTable(self._ctable)
+      
+    self.pixmap = QPixmap.fromImage(qImg).scaled(QSize(self._width, self._height))
+    # self.pixmap = QPixmap.fromImage(qImg)
+
+    if self.flip_vertical:
+      self.pixmap = self.pixmap.transformed(QTransform().scale(1, -1))
+
+    self.setPixmap(self.pixmap)
+
+  # --- Colormap -----------------------------------------------------------
+
+  @property
+  def cmap(self): return self._cmap
+
+  @cmap.setter
+  def cmap(self, C):
+
+    self._cmap = C
+    self._ctable = C.colortable()
+
+# --- Field ----------------------------------------------------------------
+
+class field(item, QGraphicsPixmapItem):
+  """
+  field item
+  """
+
+  def __init__(self, animation, name, position=[0,0], width=None, height=None, **kwargs):
+    """
+    Field item constructor
+    """  
+
+    # Generic item constructor
+    super().__init__(animation, name, **kwargs)
+    
+    # --- Definitions
+
+    self._width = None
+    self._height = None
+    self._field = None
+    self._table = None
+    self.pixmap = None
+    self.flip_vertical = kwargs['flip_vertical'] if 'flip_vertical' in kwargs else False
+    
+    # --- Initialization
+
+    self.width = width if width is not None else self.animation.boundaries['width']
+    self.height = height if height is not None else self.animation.boundaries['height']
+    self.position = position
+
+    self.cmap = kwargs['cmap'] if 'cmap' in kwargs else Colormap('turbo', ncolors=256)
+
+    # --- Field
+
+    self.field = kwargs['field'] if 'field' in kwargs else np.zeros((1,1))
+      
+    # Adjust position
+    # self.setPos(0,-self.height)
+
+  # --- Position -----------------------------------------------------------
+
+  @property
+  def position(self): return self._position
+
+  @position.setter
+  def position(self, p):
+    self._position = [p[0], p[1] + self.height]
+    self.place() 
+
+  # --- Width --------------------------------------------------------------
+
+  @property
+  def width(self): return self.scene2d(self._width)
+
+  @width.setter
+  def width(self, w):
+
+    self._width = int(self.d2scene(w))
+    if self.pixmap is not None:
+      self.pixmap = self.pixmap.scaled(QSize(self._width, self._height))
+      self.setPixmap(self.pixmap)
+  
+  # --- Height --------------------------------------------------------------
+
+  @property
+  def height(self): return self.scene2d(self._height)
+
+  @height.setter
+  def height(self, h):
+
+    self._height = int(self.d2scene(h))
+    if self.pixmap is not None:
+      self.pixmap = self.pixmap.scaled(QSize(self._width, self._height))
+      self.setPixmap(self.pixmap)
+
+  # --- Image ---------------------------------------------------------------
+
+  @property
+  def field(self): return self._field
+
+  @field.setter
+  def field(self, img):
+
+    # Rescale on [0,255]
     img = 255*(img - self._cmap.range[0])/(self._cmap.range[1] - self._cmap.range[0])
     img[img<0] = 0
     img[img>255] = 255
-    self._image = img.astype(np.uint8)
+    self._field = img.astype(np.uint8)
     
     # Build image
-    qImg = QImage(self._image.data, self._image.shape[1], self._image.shape[0], self._image.shape[1], QImage.Format_Indexed8)
+    qImg = QImage(self._field.data, self._field.shape[1], self._field.shape[0], self._field.shape[1], QImage.Format_Indexed8)
 
     # Apply colormap
     qImg.setColorTable(self._ctable)
