@@ -43,19 +43,26 @@ class Window(QWidget):
   ''' A pyqtSignal object to manage external events.'''
 
   # ========================================================================
-  def __init__(self, title='Animation', display_information=True, autoplay=True, dt=None, style='dark', height=0.75):
+  def __init__(self, 
+               title='Animation', 
+               display_information=True, 
+               autoplay=True, 
+               dt=None, 
+               style='dark', 
+               height=0.75):
     """
     Window constructor.
 
     In particular, it initializes the QApplication `app` and the animation to display `anim`.
     
-    The dark style is automatically applied if the corresponding stylesheet is found.
+    The dark style is set by defaut (if the corresponding stylesheet is found).
 
     Args:
       title (string): Window title. Default: 'Animation'.
       display_information (bool): Determines if the extra information have to be displayed. Default: True.
       autoplay (bool): Indicating if autoplay is on or off. Default: True.
       dt (frames): time increment between two frames (in seconds). Default: None.
+      style   ['dark', 'light', 'white']
     """
 
     # Qapplication
@@ -88,6 +95,14 @@ class Window(QWidget):
 
     self.aspect_ratios = []
 
+    # --- Style
+
+    self.style = style
+
+    with open(os.path.dirname(os.path.abspath(__file__)) + f'/Style/{self.style}.css', 'r') as f:
+      css = f.read()
+      self.app.setStyleSheet(css)
+
     # --- Information
 
     if display_information:
@@ -104,16 +119,6 @@ class Window(QWidget):
     else:
       self.information = None
     
-    # --- Style
-
-    self.style = style 
-
-    # Modified qdarkstyle
-    if self.style == 'dark':
-      with open(os.path.dirname(os.path.abspath(__file__))+'/Style/dark.css', 'r') as f:
-        css = f.read()
-        self.app.setStyleSheet(css)
-
     # --- Timing
 
     # Framerate

@@ -127,7 +127,11 @@ class Animation_2d(QObject):
   updated = pyqtSignal()
 
   # ========================================================================
-  def __init__(self, W, viewHeight=None, boundaries=None, disp_boundaries=True, boundaries_color=Qt.lightGray):
+  def __init__(self, W, 
+               viewHeight=None, 
+               boundaries=None, 
+               disp_boundaries=True, 
+               boundaries_color=Qt.gray):
     """
     Animation constructor
 
@@ -181,6 +185,20 @@ class Animation_2d(QObject):
     # Scene
     self.scene = QGraphicsScene()
     self.view = view(self.scene)
+
+    # Style management
+    match self.window.style:
+
+      case 'dark':
+        if boundaries_color is None: boundaries_color = Qt.black
+
+      case 'light':
+        self.view.setStyleSheet("border: 0px; background-color:#efefef;")
+        if boundaries_color is None: boundaries_color = QColor('#efefef')
+
+      case 'white':
+        self.view.setStyleSheet("border: 0px; background-color:white;")
+        if boundaries_color is None: boundaries_color = Qt.white
 
     # Scene boundaries display
     self.disp_boundaries = disp_boundaries

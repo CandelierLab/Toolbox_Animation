@@ -11,7 +11,9 @@ class Information(Animation_2d):
   def __init__(self, W, disp_time=True):
     
     # Parent contructor
-    super().__init__(W, boundaries=[[0, 0.2], [0, 1]], boundaries_color=Qt.black)
+    super().__init__(W, 
+                     boundaries=[[0, 0.2], [0, 1]], 
+                     boundaries_color = None)
 
     # --- Optional display
 
@@ -22,7 +24,7 @@ class Information(Animation_2d):
       self.add(text, 'Time',
         stack = True,
         string = self.time_str(time(0,0)),
-        color = 'white',
+        color = 'white' if W.style is 'dark' else 'black',
         fontsize = 12,
       )
 
