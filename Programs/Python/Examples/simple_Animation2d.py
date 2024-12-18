@@ -113,7 +113,7 @@ class Anim(Animation_2d):
 
 # --- Main -----------------------------------------------------------------
 
-W = Window('Simple animation', style='light')
+W = Window('Simple animation')
 W.add(Anim(W))
 
 # Allow backward animation
