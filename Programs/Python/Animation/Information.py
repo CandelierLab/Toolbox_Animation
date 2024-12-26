@@ -24,7 +24,6 @@ class Information(Animation_2d):
       self.add(text, 'Time',
         stack = True,
         string = self.time_str(time(0,0)),
-        color = 'white' if W.style is 'dark' else 'black',
         fontsize = 12,
       )
 
