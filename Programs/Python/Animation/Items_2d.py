@@ -87,6 +87,9 @@ class item():
     if 'zvalue' in kwargs: self.zvalue = kwargs['zvalue']
     if 'draggable' in kwargs: self.draggable = kwargs['draggable']
 
+    # Default color
+    self.default_colors = ('white', 'gray') if self.animation.window.style is 'dark' else ('black', 'gray')
+
   def x2scene(self, x):
     """
     Convert the :math:`x` position in scene coordinates
@@ -621,7 +624,7 @@ class text(item, QGraphicsTextItem):
     # --- Initialization
 
     self.string = kwargs['string'] if 'string' in kwargs else '-'
-    self.color = kwargs['color'] if 'color' in kwargs else 'white'
+    self.color = kwargs['color'] if 'color' in kwargs else self.default_colors[0]
     if 'fontname' in kwargs: self.fontname = kwargs['fontname']
     if 'fontsize' in kwargs: self.fontsize = kwargs['fontsize']
     if 'center' in kwargs: self.center = kwargs['center'] 
@@ -766,7 +769,7 @@ class ellipse(item, QGraphicsEllipseItem):
       self.major = kwargs['major']
       self.minor = kwargs['minor']
 
-    self.colors = kwargs['colors'] if 'colors' in kwargs else ['gray','white']
+    self.colors = kwargs['colors'] if 'colors' in kwargs else [self.default_colors[1], self.default_colors[0]]
     self.linestyle = kwargs['linestyle'] if 'linestyle' in kwargs else None
     self.thickness = kwargs['thickness'] if 'thickness' in kwargs else 0   
     self.span = kwargs['span'] if 'span' in kwargs else None
@@ -925,7 +928,7 @@ class circle(item, QGraphicsEllipseItem):
     else:
       self.radius = kwargs['radius']
 
-    self.colors = kwargs['colors'] if 'colors' in kwargs else ['gray','white']
+    self.colors = kwargs['colors'] if 'colors' in kwargs else [self.default_colors[1], self.default_colors[0]]
     self.linestyle = kwargs['linestyle'] if 'linestyle' in kwargs else None
     self.thickness = kwargs['thickness'] if 'thickness' in kwargs else 0
     self.span = kwargs['span'] if 'span' in kwargs else None
@@ -1063,7 +1066,7 @@ class rectangle(item, QGraphicsRectItem):
       self.height = kwargs['height']
 
     if 'center' in kwargs: self.center = kwargs['center']
-    self.colors = kwargs['colors'] if 'colors' in kwargs else ['gray','white']
+    self.colors = kwargs['colors'] if 'colors' in kwargs else [self.default_colors[1], self.default_colors[0]]
     self.linestyle = kwargs['linestyle'] if 'linestyle' in kwargs else None
     self.thickness = kwargs['thickness'] if 'thickness' in kwargs else 0   
 
@@ -1223,7 +1226,7 @@ class line(item, QGraphicsLineItem):
     else:
       self.points = kwargs['points']
 
-    self.color = kwargs['color'] if 'color' in kwargs else 'white'
+    self.color = kwargs['color'] if 'color' in kwargs else self.default_colors[0]
     self.linestyle = kwargs['linestyle'] if 'linestyle' in kwargs else None
     self.thickness = kwargs['thickness'] if 'thickness' in kwargs else 0   
 
@@ -1345,7 +1348,7 @@ class polygon(item, QGraphicsPolygonItem):
     else:
       self.points = kwargs['points']
 
-    self.colors = kwargs['colors'] if 'colors' in kwargs else ['gray','white']
+    self.colors = kwargs['colors'] if 'colors' in kwargs else [self.default_colors[1], self.default_colors[0]]
     self.linestyle = kwargs['linestyle'] if 'linestyle' in kwargs else None
     self.thickness = kwargs['thickness'] if 'thickness' in kwargs else 0   
 
@@ -1466,7 +1469,7 @@ class path(item, QGraphicsPathItem):
     else:
       self.points = kwargs['points']
 
-    self.colors = kwargs['colors'] if 'colors' in kwargs else ['gray','white']
+    self.colors = kwargs['colors'] if 'colors' in kwargs else [self.default_colors[1], self.default_colors[0]]
     self.linestyle = kwargs['linestyle'] if 'linestyle' in kwargs else None
     self.thickness = kwargs['thickness'] if 'thickness' in kwargs else 0   
 
