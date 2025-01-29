@@ -330,7 +330,7 @@ class item():
       # Style
       match self._linestyle:
         case 'dash' | '--': Pen.setDashPattern([3,6])
-        case 'dot' | ':' | '..': Pen.setStyle(Qt.DotLine)
+        case 'dot' | ':' | '..': Pen.setStyle(Qt.PenStyle.DotLine)
         case 'dashdot' | '-.': Pen.setDashPattern([3,3,1,3])
       
       self.setPen(Pen)
