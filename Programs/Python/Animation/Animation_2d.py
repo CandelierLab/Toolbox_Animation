@@ -30,9 +30,9 @@ created without parent (``QWidget`` or :class:`Window`), the default
 :class:`Window` is automatically created.
 """
 
-from PyQt5.QtCore import Qt, QObject, pyqtSignal
-from PyQt5.QtGui import QPalette, QPainter, QPen
-from PyQt5.QtWidgets import QApplication, QGraphicsScene, QGraphicsView, QGraphicsRectItem
+from PyQt6.QtCore import Qt, QObject, pyqtSignal
+from PyQt6.QtGui import QPalette, QPainter, QPen, QColorConstants
+from PyQt6.QtWidgets import QApplication, QGraphicsScene, QGraphicsView, QGraphicsRectItem
 
 import project
 from Animation.Items_2d import *
@@ -47,8 +47,8 @@ class view(QGraphicsView):
     super().__init__(*args, *kwargs)
     self.setScene(scene)
     self.padding = 0
-    self.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-    self.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+    self.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
+    self.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
 
   def fit(self):
     
@@ -56,7 +56,7 @@ class view(QGraphicsView):
     rect.setLeft(rect.left() - self.padding)
     rect.setTop(rect.top() - self.padding)
     rect.setBottom(rect.bottom() + self.padding)
-    self.fitInView(rect, Qt.KeepAspectRatio)
+    self.fitInView(rect, Qt.AspectRatioMode.KeepAspectRatio)
 
   def showEvent(self, E):
 
@@ -131,7 +131,7 @@ class Animation_2d(QObject):
                viewHeight=None, 
                boundaries=None, 
                disp_boundaries=True, 
-               boundaries_color=Qt.gray):
+               boundaries_color=QColorConstants.Gray):
     """
     Animation constructor
 
@@ -190,7 +190,7 @@ class Animation_2d(QObject):
     match self.window.style:
 
       case 'dark':
-        if boundaries_color is None: boundaries_color = Qt.black
+        if boundaries_color is None: boundaries_color = QColorConstants.Black
 
       case 'light':
         self.view.setStyleSheet("border: 0px; background-color:#efefef;")
@@ -217,7 +217,7 @@ class Animation_2d(QObject):
     # --- Display
 
     # Antialiasing
-    self.view.setRenderHints(QPainter.Antialiasing)
+    self.view.setRenderHints(QPainter.RenderHint.Antialiasing)
 
     # Stack
     self.stack = {'vpos': self.boundaries['y'][1], 

@@ -1,9 +1,9 @@
 import numpy as np
 from Animation.Colormap import *
 
-from PyQt5.QtCore import Qt, QPointF, QRectF, QSize
-from PyQt5.QtGui import QColor, QPen, QBrush, QPolygonF, QFont, QPainterPath, QTransform, QPixmap, QImage, qRgb
-from PyQt5.QtWidgets import QAbstractGraphicsShapeItem, QGraphicsItem, QGraphicsItemGroup, QGraphicsTextItem, QGraphicsLineItem, QGraphicsEllipseItem, QGraphicsPolygonItem, QGraphicsRectItem, QGraphicsPathItem, QGraphicsPixmapItem
+from PyQt6.QtCore import Qt, QPointF, QRectF, QSize
+from PyQt6.QtGui import QColor, QPen, QBrush, QPolygonF, QFont, QPainterPath, QTransform, QPixmap, QImage, qRgb
+from PyQt6.QtWidgets import QAbstractGraphicsShapeItem, QGraphicsItem, QGraphicsItemGroup, QGraphicsTextItem, QGraphicsLineItem, QGraphicsEllipseItem, QGraphicsPolygonItem, QGraphicsRectItem, QGraphicsPathItem, QGraphicsPixmapItem
 
 # === ITEMS ================================================================
 
@@ -388,7 +388,7 @@ class item():
     type = None
 
     match change:
-      case QGraphicsItem.ItemPositionHasChanged:
+      case QGraphicsItem.GraphicsItemChange.ItemPositionHasChanged:
         type = 'move'
 
     # Report to animation
@@ -1632,7 +1632,7 @@ class image(item, QGraphicsPixmapItem):
     self._image = (img*255).astype(np.uint8)
     
     # Build image
-    qImg = QImage(self._image.data, self._image.shape[1], self._image.shape[0], QImage.Format_RGB888)
+    qImg = QImage(self._image.data, self._image.shape[1], self._image.shape[0], QImage.Format.Format_RGB888)
 
     # Apply colormap
     qImg.setColorTable(self._ctable)
@@ -1746,7 +1746,7 @@ class field(item, QGraphicsPixmapItem):
     self._field = img.astype(np.uint8)
     
     # Build image
-    qImg = QImage(self._field.data, self._field.shape[1], self._field.shape[0], self._field.shape[1], QImage.Format_Indexed8)
+    qImg = QImage(self._field.data, self._field.shape[1], self._field.shape[0], self._field.shape[1], QImage.Format.Format_Indexed8)
 
     # Apply colormap
     qImg.setColorTable(self._ctable)

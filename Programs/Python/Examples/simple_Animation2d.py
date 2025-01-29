@@ -120,6 +120,7 @@ W.add(Anim(W))
 W.allow_backward = True
 W.allow_negative_time = False
 
-# W.movieFile = '/home/raphael/Bureau/test.mp4'
+W.movieFile = '/home/raphael/Bureau/test.mp4'
+W.movieWidth = 1600*2
 
 W.show()

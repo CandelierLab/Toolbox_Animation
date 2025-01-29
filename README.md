@@ -1,9 +1,8 @@
 # Toolbox_Animation
 A python toolbox for creating animations.
 
-## Installation via Conda:
+## Installation:
 
 ```
-conda install numpy matplotlib pyqt
-pip install imageio[ffmpeg]
+pip install numpy matplotlib pyqt6 imageio[ffmpeg]
 ```

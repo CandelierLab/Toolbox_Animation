@@ -4,7 +4,7 @@ Colormaps tools
 
 import numpy as np
 from matplotlib import cm
-from PyQt5.QtGui import QColor, qRgb
+from PyQt6.QtGui import QColor, qRgb
 
 class Colormap():
   """

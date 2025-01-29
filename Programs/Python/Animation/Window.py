@@ -12,9 +12,9 @@ import project
 from Animation.Information import *
 from Animation.Animation_2d import *
 
-from PyQt5.QtCore import pyqtSignal, QTimer
-from PyQt5.QtGui import QKeySequence, QImage
-from PyQt5.QtWidgets import QApplication, QWidget, QShortcut, QGridLayout
+from PyQt6.QtCore import pyqtSignal, QTimer
+from PyQt6.QtGui import QKeySequence, QImage, QShortcut, QGuiApplication
+from PyQt6.QtWidgets import QApplication, QWidget, QGridLayout
 
 class Window(QWidget):
   """
@@ -88,7 +88,7 @@ class Window(QWidget):
 
     # Window size
     if height<=1:
-      self.height = int(QApplication.desktop().screenGeometry().height()*height)
+      self.height = int(self.app.screens()[0].size().height()*height);      
     else:
       self.height = int(height)
     self.width = None
@@ -211,11 +211,11 @@ class Window(QWidget):
     self.shortcut['space'].activated.connect(self.play_pause)
 
     # Decrement
-    self.shortcut['previous'] = QShortcut(QKeySequence.MoveToPreviousChar, self)
+    self.shortcut['previous'] = QShortcut(QKeySequence.StandardKey.MoveToPreviousChar, self)
     self.shortcut['previous'].activated.connect(self.decrement)
 
     # Increment
-    self.shortcut['next'] = QShortcut(QKeySequence.MoveToNextChar, self)
+    self.shortcut['next'] = QShortcut(QKeySequence.StandardKey.MoveToNextChar, self)
     self.shortcut['next'].activated.connect(self.increment)
 
     # --- Display animation ------------------------------------------------
