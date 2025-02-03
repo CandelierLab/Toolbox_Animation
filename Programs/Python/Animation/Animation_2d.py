@@ -34,7 +34,6 @@ from PyQt6.QtCore import Qt, QObject, pyqtSignal
 from PyQt6.QtGui import QPalette, QPainter, QPen, QColorConstants
 from PyQt6.QtWidgets import QApplication, QGraphicsScene, QGraphicsView, QGraphicsRectItem
 
-import project
 from Animation.Items_2d import *
 from Animation.Composites_2d import *
 

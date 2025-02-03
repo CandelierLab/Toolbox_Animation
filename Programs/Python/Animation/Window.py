@@ -8,7 +8,6 @@ except:
   # The try-except structure is for pdoc, which may have trouble to find imageio
   pass
 
-import project
 from Animation.Information import *
 from Animation.Animation_2d import *
 

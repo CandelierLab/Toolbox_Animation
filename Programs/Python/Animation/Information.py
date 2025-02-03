@@ -1,6 +1,5 @@
 import re
 
-import project
 from Animation.Time import *
 from Animation.Animation_2d import *
 from Animation.Items_2d import *

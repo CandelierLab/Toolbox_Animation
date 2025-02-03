@@ -2,7 +2,6 @@ import numpy as np
 
 from PyQt6.QtGui import QLinearGradient
 
-import project
 from Animation.Items_2d import *
 from Animation.Colormap import *
 

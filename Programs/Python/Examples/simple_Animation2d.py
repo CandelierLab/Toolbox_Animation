@@ -1,7 +1,5 @@
 import os
 
-import project
-
 from Animation.Window import *
 from Animation.Animation_2d import *
 
