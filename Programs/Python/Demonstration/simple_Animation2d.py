@@ -1,9 +1,5 @@
-import os
-
 from Animation.Window import *
 from Animation.Animation_2d import *
-
-os.system('clear')
 
 # --- 2D Animation ---------------------------------------------------------
 
@@ -13,7 +9,7 @@ class Anim(Animation_2d):
 
     super().__init__(W, boundaries=[[0,1],[0,1]])
 
-    self.padding=0.01
+    self.padding = 0.01
 
     self.x0 = 0.5
     self.y0 = 0.5
@@ -111,14 +107,16 @@ class Anim(Animation_2d):
 
 # --- Main -----------------------------------------------------------------
 
-W = Window('Simple animation')
-W.add(Anim(W))
+if __name__ == "__main__":
 
-# Allow backward animation
-W.allow_backward = True
-W.allow_negative_time = False
+  W = Window('Simple animation')
+  W.add(Anim(W))
 
-W.movieFile = '/home/raphael/Bureau/test.mp4'
-W.movieWidth = 1600*2
+  # Allow backward animation
+  W.allow_backward = True
+  W.allow_negative_time = False
 
-W.show()
+  # W.movieFile = '/home/raphael/Bureau/test.mp4'
+  # W.movieWidth = 1600*2
+
+  W.show()

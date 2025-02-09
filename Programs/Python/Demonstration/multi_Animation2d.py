@@ -1,9 +1,5 @@
-import os
-
 from Animation.Window import *
 from Animation.Animation_2d import *
-
-os.system('clear')
 
 # === Animation ============================================================
 
@@ -53,17 +49,13 @@ class Anim(Animation_2d):
 
 # === Main =================================================================
 
-W = Window(display_information=True)
+if __name__ == "__main__":
 
-W.title = 'Multiple animation'
+  W = Window(display_information=True)
 
-W.add(Anim(W, 'red'))
-W.add(Anim(W, 'green'))
+  W.title = 'Multiple animation'
 
-# Allow backward animation
-W.allow_backward = True
-W.allow_negative_time = False
+  W.add(Anim(W, 'red'))
+  W.add(Anim(W, 'green'))
 
-# W.movieFile = '/home/raphael/Vidéos/test.mp4'
-
-W.show()
+  W.show()

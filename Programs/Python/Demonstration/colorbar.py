@@ -1,10 +1,6 @@
-import os
-
 from Animation.Window import *
 from Animation.Animation_2d import *
 from Animation.Colormap import *
-
-os.system('clear')
 
 # --- 2D Animation ---------------------------------------------------------
 
@@ -76,6 +72,8 @@ class Anim(Animation_2d):
 
 # --- Main -----------------------------------------------------------------
 
-W = Window('Colorbar example')
-W.add(Anim(W))
-W.show()
+if __name__ == "__main__":
+
+  W = Window('Colorbar example')
+  W.add(Anim(W))
+  W.show()

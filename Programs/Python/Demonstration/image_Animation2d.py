@@ -1,9 +1,5 @@
-import os
-
 from Animation.Window import *
 from Animation.Animation_2d import *
-
-os.system('clear')
 
 # --- 2D Animation ---------------------------------------------------------
 
@@ -40,11 +36,9 @@ class Anim(Animation_2d):
 
 # --- Main -----------------------------------------------------------------
 
-W = Window('Image animation')
-W.add(Anim(W))
+if __name__ == "__main__":
 
-# Allow backward animation
-W.allow_backward = True
-W.allow_negative_time = True
+  W = Window('Image animation')
+  W.add(Anim(W))
 
-W.show()
+  W.show()
